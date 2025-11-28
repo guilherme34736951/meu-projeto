@@ -1,0 +1,398 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Pit Stop Clean — Estética Automotiva</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@600;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root{
+            --bg: #050505;
+            --text: #f0f0f0;
+            --accent: #8b4cd9;
+            --accent-glow: rgba(139, 76, 217, 0.4);
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --glass: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 255, 255, 0.08);
+            --radius: 16px;
+        }
+
+        *{box-sizing:border-box}
+        html,body{height:100%}
+        
+        body{
+            margin:0;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            background-image: 
+                radial-gradient(circle at 15% 20%, rgba(139, 76, 217, 0.25) 0%, transparent 40%),
+                radial-gradient(circle at 85% 70%, rgba(139, 76, 217, 0.2) 0%, transparent 45%),
+                radial-gradient(circle at 50% 50%, rgba(139, 76, 217, 0.08) 0%, transparent 60%);
+            background-attachment: fixed;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        /* EFEITO DE DESFOQUE DE MOVIMENTO (MANTIDO) */
+        main {
+            transition: filter 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        body.is-scrolling main {
+            filter: blur(6px) grayscale(20%);
+            transform: scale(0.98);
+        }
+
+        h1, h2, h3, .price-tag, .nav-link {
+            font-family: 'Barlow', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        header{
+            position: absolute; top: 0; left: 0; right: 0;
+            width: 100%; max-width: 1200px; margin: 0 auto; padding: 24px;
+            display: flex; justify-content: space-between; align-items: center; z-index: 100;
+        }
+
+        .brand{ display: flex; align-items: center; gap: 16px; text-decoration: none; color: var(--text); }
+        .logo{
+            width: 60px; height: 60px; border-radius: 12px; overflow: hidden;
+            background: var(--glass); border: 1px solid var(--border);
+            display: flex; align-items: center; justify-content: center;
+        }
+        .logo img{width:100%; height:100%; object-fit:cover;}
+        .brand-text h1 { font-size: 1.2rem; font-weight: 800; margin: 0; letter-spacing: 0; }
+        .brand-text span { font-family: 'Inter', sans-serif; font-size: 0.75rem; color: rgba(255,255,255,0.6); text-transform: uppercase; letter-spacing: 1px; font-weight: 500; }
+
+        nav { display: flex; gap: 32px; }
+        nav a{
+            color: var(--text); text-decoration: none; font-size: 0.9rem;
+            font-weight: 600; opacity: 0.8; transition: 0.3s; position: relative; text-transform: uppercase;
+            cursor: pointer;
+        }
+        nav a:hover { opacity: 1; color: var(--accent); }
+        nav a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0%; height: 2px; background: var(--accent); transition: 0.3s; }
+        nav a:hover::after { width: 100%; }
+
+        main{ max-width: 1200px; margin: 0 auto; padding: 140px 24px 80px; }
+
+        .section-header { text-align: center; margin-bottom: 56px; }
+        .section-header h2 {
+            font-size: 2.5rem; font-weight: 800; margin: 0;
+            background: linear-gradient(to right, #fff, #a0a0a0);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .section-header::after {
+            content: ''; display: block; width: 60px; height: 4px;
+            background: var(--accent); margin: 16px auto 0;
+            border-radius: 2px; box-shadow: 0 0 20px var(--accent);
+        }
+        .section-header p { margin-top: 16px; color: rgba(255,255,255,0.6); font-size: 1.05rem; }
+
+        /* Hero and Features CSS remains unchanged... */
+        .hero{ display: grid; grid-template-columns: 1.2fr 1fr; gap: 40px; align-items: center; margin-bottom: 100px; position: relative; }
+        .hero-title{ font-size: clamp(40px, 5vw, 64px); line-height: 1; margin: 0 0 24px 0; font-weight: 800; }
+        .hero-title .accent{ color: var(--accent); }
+        .tag{
+            display: inline-block; margin-bottom: 24px; padding: 6px 12px;
+            background: rgba(139, 76, 217, 0.1); border: 1px solid rgba(139, 76, 217, 0.3);
+            border-radius: 50px; color: var(--accent); font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;
+        }
+        .cta-group { display: flex; gap: 16px; margin-top: 32px; }
+        .btn{
+            background: var(--accent); color: #fff; padding: 16px 32px; border-radius: 50px;
+            text-decoration: none; font-weight: 700; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 0.5px;
+            box-shadow: 0 10px 30px -5px var(--accent-glow); transition: transform 0.2s, box-shadow 0.2s; border: 1px solid transparent;
+        }
+        .btn:hover { transform: translateY(-3px); box-shadow: 0 20px 40px -10px var(--accent-glow); }
+        .btn-outline {
+            background: transparent; color: #fff; border: 1px solid rgba(255,255,255,0.2);
+            padding: 16px 32px; border-radius: 50px; text-decoration: none; font-weight: 700; text-transform: uppercase; font-size: 0.9rem; transition: all 0.2s;
+        }
+        .btn-outline:hover { border-color: #fff; background: rgba(255,255,255,0.05); }
+        .hero-right{ display: flex; justify-content: center; }
+        .hero-right img{ width: 100%; max-width: 400px; aspect-ratio: 1/1; object-fit: cover; border-radius: 24px; box-shadow: 0 20px 80px rgba(0,0,0,0.6); border: 1px solid var(--border); }
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 24px; margin-bottom: 120px; }
+        .feature-card { background: var(--card-bg); border: 1px solid var(--border); padding: 32px; border-radius: var(--radius); text-align: center; transition: 0.3s; }
+        .feature-card:hover { background: rgba(255,255,255,0.06); border-color: var(--accent); transform: translateY(-5px); }
+        .feature-icon { width: 56px; height: 56px; background: rgba(139, 76, 217, 0.15); color: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; }
+        .feature-icon svg { width: 28px; height: 28px; }
+        .grid{ display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 32px; margin-bottom: 120px; }
+        .card{
+            padding: 32px; border-radius: var(--radius); background: var(--card-bg); border: 1px solid var(--border);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2); transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex; flex-direction: column; justify-content: space-between; position: relative; overflow: hidden;
+        }
+        .card:hover{ transform: translateY(-10px); background: rgba(255,255,255,0.08); }
+        .card h3 { margin: 0 0 12px 0; font-size: 1.4rem; color: #fff; }
+        .card p { margin: 0; color: rgba(255,255,255,0.7); font-size: 0.95rem; line-height: 1.6; }
+        .price-tag { margin-top: 24px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 1.6rem; font-weight: 800; color: var(--accent); }
+        .price-sub { font-size: 0.85rem; color: rgba(255,255,255,0.5); font-weight: 400; display: block; margin-top: 4px; letter-spacing: 0; font-family: 'Inter', sans-serif; }
+        .card.featured { border: 2px solid var(--accent); background: rgba(139, 76, 217, 0.08); transform: scale(1.05); z-index: 2; box-shadow: 0 20px 60px rgba(139, 76, 217, 0.15); }
+        .card.featured:hover { transform: scale(1.05) translateY(-10px); }
+        .card.featured::after { content: 'RECOMENDADO'; position: absolute; top: 0; right: 0; background: var(--accent); color: #fff; font-size: 0.7rem; font-weight: 800; padding: 6px 12px; border-bottom-left-radius: 12px; font-family: 'Barlow', sans-serif; }
+
+        /* --- NOVO: Estilos para Comparação Lado a Lado --- */
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr; /* Duas colunas iguais */
+            gap: 20px;
+            margin-bottom: 80px;
+        }
+        .comparison-item {
+            position: relative;
+            border-radius: var(--radius);
+            overflow: hidden;
+            border: 1px solid var(--border);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transition: transform 0.3s;
+        }
+        .comparison-item:hover {
+            transform: translateY(-5px) scale(1.01);
+            border-color: var(--accent);
+        }
+        .comparison-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+            aspect-ratio: 4/3; /* Proporção para que ambas tenham a mesma altura */
+            object-fit: cover;
+        }
+        .comparison-label {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            padding: 10px 20px;
+            font-size: 1.1rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            color: #fff;
+            background: rgba(0,0,0,0.7);
+            border-top-right-radius: var(--radius);
+            font-family: 'Barlow', sans-serif;
+            letter-spacing: 1px;
+        }
+        .after-label {
+            background: var(--accent);
+            color: #fff;
+        }
+
+        /* Adicionais e Footer CSS remains unchanged... */
+        #alternate { background: rgba(255,255,255,0.02); border: 1px solid var(--border); padding: 60px 40px; border-radius: 24px; backdrop-filter: blur(10px); }
+        #alternate .card { background: transparent; box-shadow: none; }
+
+        footer{ margin-top: 80px; padding: 80px 20px 30px; background: #020202; border-top: 1px solid var(--border); }
+        .footer-content { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 50px; margin-bottom: 50px; }
+        .footer-col h4 { color: #fff; margin-bottom: 24px; font-size: 1.2rem; }
+        .footer-col p { color: rgba(255,255,255,0.5); font-size: 0.95rem; line-height: 1.8; margin-bottom: 8px; }
+        .copyright { text-align: center; color: rgba(255,255,255,0.3); font-size: 0.85rem; padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.05); }
+
+        .whatsapp-float { position: fixed; width: 60px; height: 60px; bottom: 30px; right: 30px; background-color: #25d366; color: #FFF; border-radius: 50px; text-align: center; box-shadow: 0px 10px 25px rgba(37, 211, 102, 0.4); z-index: 1000; display: flex; align-items: center; justify-content: center; transition: transform 0.3s; text-decoration: none; }
+        .whatsapp-float:hover { transform: scale(1.1); }
+        .whatsapp-float svg { width: 32px; height: 32px; fill: #fff; }
+
+        /* Animações */
+        .reveal-on-scroll { opacity: 0; transform: translateY(80px) scale(0.9); filter: blur(8px); transition: all 1s cubic-bezier(0.25, 1, 0.5, 1); }
+        .reveal-on-scroll.is-visible { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+        .grid .card.reveal-item, .feature-card.reveal-item, .comparison-item.reveal-item { opacity: 0; transform: translateY(60px); filter: blur(10px); transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.8s ease; transition-delay: var(--delay, 0ms); }
+        .grid .card.reveal-item.is-visible, .feature-card.reveal-item.is-visible, .comparison-item.reveal-item.is-visible { opacity: 1; transform: translateY(0); filter: blur(0); }
+
+        @media (max-width: 768px){
+            header { position: relative; padding: 16px; }
+            .hero { grid-template-columns: 1fr; text-align: center; gap: 40px; padding-top: 0; margin-bottom: 60px; }
+            .hero-right { order: -1; } .hero-right img { max-width: 280px; }
+            .cta-group { justify-content: center; flex-direction: column; }
+            .grid { grid-template-columns: 1fr; } .card.featured { transform: scale(1); }
+            .comparison-grid { grid-template-columns: 1fr; } /* Empilha no mobile */
+            nav { gap: 16px; } nav a { font-size: 0.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a class="brand" href="#" aria-label="Pit Stop Clean">
+            <div class="logo">
+                <img src="img/D61EE2FD-FBAB-4520-B31D-9DF1D5E3B529.PNG" alt="Logo">
+            </div>
+            <div class="brand-text">
+                <h1 style="color:#fff">PIT STOP CLEAN</h1>
+                <span>Estética Automotiva</span>
+            </div>
+        </a>
+
+        <nav>
+            <a href="#servicos" class="blur-link">Serviços</a>
+            <a href="#trabalhos" class="blur-link">Galeria</a>
+            <a href="https://wa.me/5500000000000" style="color:var(--accent)">Agendar</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-left reveal-on-scroll">
+                <div class="tag">Lavagem Premium</div>
+                <h1 class="hero-title">Seu carro novo,<br> <span class="accent">de novo.</span></h1>
+                <p style="color: rgba(255,255,255,0.65); font-size: 1.1rem; line-height: 1.6; margin-bottom: 32px;">
+                    Não é apenas uma lavagem, é um tratamento. Produtos de alta tecnologia, cuidado artesanal e proteção duradoura para seu veículo.
+                </p>
+
+                <div class="cta-group">
+                    <a class="btn" href="https://wa.me/5500000000000">Agendar Agora</a>
+                    <a class="btn-outline blur-link" href="#servicos">Ver Preços</a>
+                </div>
+            </div>
+
+            <div class="hero-right reveal-on-scroll">
+                <img src="img/D61EE2FD-FBAB-4520-B31D-9DF1D5E3B529.PNG" alt="Carro Pit Stop">
+            </div>
+        </section>
+
+        <section id="servicos" class="reveal-on-scroll">
+            <div class="section-header">
+                <h2>Nossos Pacotes</h2>
+                <p>Escolha o nível de detalhamento ideal para hoje.</p>
+            </div>
+            <div class="grid">
+                <article class="card reveal-item" style="--delay: 0ms">
+                    <div><h3>Pacote 1: Simples</h3><p>Limpeza externa técnica da lataria, vidros e rodas. Perfeito para manutenção.</p></div>
+                    <div class="price-tag">R$ 60,00</div>
+                </article>
+                <article class="card reveal-item" style="--delay: 100ms">
+                    <div><h3>Pacote 1: Com Cera</h3><p>Lavagem detalhada com aplicação de cera para brilho e proteção.</p></div>
+                    <div class="price-tag">R$ 80,00 <span class="price-sub">Líquida</span><span style="display:block; font-size:0.8em; margin-top:4px; color:var(--accent)">R$ 90,00 <span class="price-sub" style="display:inline">Pasta</span></span></div>
+                </article>
+                <article class="card reveal-item featured" style="--delay: 200ms"> 
+                    <div><h3>Pacote 2: Revitalização</h3><p>O favorito. Restauração de cor e proteção de plásticos internos e externos.</p></div>
+                    <div class="price-tag">R$ 150,00 <span class="price-sub">Com Cera Líquida</span><span style="display:block; font-size:0.8em; margin-top:4px; color:var(--accent)">R$ 180,00 <span class="price-sub" style="display:inline">Com Cera Pasta</span></span></div>
+                </article>
+                <article class="card reveal-item" style="--delay: 300ms"> 
+                    <div><h3>Pacote 3: Couro</h3><p>Higienização e hidratação de bancos de couro + revitalização de plásticos.</p></div>
+                    <div class="price-tag">R$ 300,00 <span class="price-sub">Com Cera Líquida</span><span style="display:block; font-size:0.8em; margin-top:4px; color:var(--accent)">R$ 330,00 <span class="price-sub" style="display:inline">Com Cera Pasta</span></span></div>
+                </article>
+                <article class="card reveal-item" style="--delay: 400ms"> 
+                    <div><h3>Pacote 4: Tecido</h3><p>Limpeza extratora de estofados (remove manchas e odores) + revitalização.</p></div>
+                    <div class="price-tag">R$ 350,00 <span class="price-sub">Com Cera Líquida</span><span style="display:block; font-size:0.8em; margin-top:4px; color:var(--accent)">R$ 380,00 <span class="price-sub" style="display:inline">Com Cera Pasta</span></span></div>
+                </article>
+            </div>
+        </section>
+
+        <section id="trabalhos" class="reveal-on-scroll">
+            <div class="section-header">
+                <h2>Nossos Trabalhos</h2>
+                <p>Veja o resultado da nossa paixão por detalhes.</p>
+            </div>
+
+            <div class="comparison-grid">
+                <div class="comparison-item reveal-item" style="--delay: 0ms;">
+                    <img src="https://images.unsplash.com/photo-1549476466-2679c24090b8?auto=format&fit=crop&w=600&q=80" alt="Carro Antes da Limpeza">
+                    <span class="comparison-label">Antes</span>
+                </div>
+                <div class="comparison-item reveal-item" style="--delay: 150ms;">
+                    <img src="https://images.unsplash.com/photo-1601362840469-51e4d8d58785?auto=format&fit=crop&w=600&q=80" alt="Carro Depois da Limpeza">
+                    <span class="comparison-label after-label">Depois</span>
+                </div>
+            </div>
+            </section>
+
+        <section id="alternate" class="reveal-on-scroll">
+            <div class="section-header">
+                <h2 style="font-size: 2rem;">Serviços Adicionais</h2>
+                <p>Complementos para um acabamento perfeito.</p>
+            </div>
+
+            <div class="grid" style="margin-bottom:0;">
+                <div class="card reveal-item" style="border-color: rgba(255,255,255,0.1);">
+                    <div><h3 style="font-size:1.1rem">Lona Marítima</h3><p style="font-size:0.9rem">Limpeza e proteção para capotas.</p></div>
+                    <div class="price-tag" style="font-size:1.2rem">R$ 30,00</div>
+                </div>
+                <div class="card reveal-item" style="border-color: rgba(255,255,255,0.1);"> 
+                    <div><h3 style="font-size:1.1rem">Chuva Ácida</h3><p style="font-size:0.9rem">Remoção de manchas nos vidros.</p></div>
+                    <div class="price-tag" style="font-size:1.2rem">R$ 40,00</div>
+                </div>
+                <div class="card reveal-item" style="border-color: rgba(255,255,255,0.1);"> 
+                    <div><h3 style="font-size:1.1rem">Caçamba</h3><p style="font-size:0.9rem">Limpeza pesada do compartimento.</p></div>
+                    <div class="price-tag" style="font-size:1.2rem">R$ 50,00</div>
+                </div>
+            </div>
+            <p style="text-align:center; margin-top:24px; font-size:0.8rem; opacity:0.5">* Valores adicionados ao pacote escolhido.</p>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-col">
+                <div class="brand" style="margin-bottom:16px">
+                    <div class="logo" style="width:40px; height:40px;">
+                        <img src="img/D61EE2FD-FBAB-4520-B31D-9DF1D5E3B529.PNG" alt="Logo">
+                    </div>
+                    <span style="font-weight:800; color:#fff">Pit Stop Clean</span>
+                </div>
+                <p>Paixão por carros e excelência em cada detalhe. Transformamos seu veículo com tecnologia e cuidado.</p>
+            </div>
+
+            <div class="footer-col">
+                <h4>Contato</h4>
+                <p>📍 Rua Dolores Schneider, 174</p>
+                <p>✉️ pitstop.clean@gmail.com</p>
+            </div>
+
+            <div class="footer-col">
+                <h4>Atendimento</h4>
+                <p>Sábado, Domingo e Feriados</p>
+                <p>Das 07h às 20h</p>
+            </div>
+        </div>
+        <div class="copyright">
+            © 2025 Pit Stop Clean — Todos os direitos reservados.
+        </div>
+    </footer>
+
+    <a href="https://wa.me/47999483897" class="whatsapp-float" target="_blank" aria-label="WhatsApp">
+        <svg viewBox="0 0 32 32"><path d="M16 2C8.268 2 2 8.268 2 16c0 2.48.642 4.874 1.864 7.006L2 30l7.184-1.848C11.326 29.358 13.62 30 16 30c7.732 0 14-6.268 14-14S23.732 2 16 2zm7.814 20.19c-.354.996-2.044 1.884-2.81 2.008-.732.118-1.664.228-4.79-1.012-3.99-1.582-6.572-5.734-6.772-6.002-.2-.27-1.614-2.15-1.614-4.1s1.012-2.904 1.372-3.3c.302-.33.804-.488 1.284-.488.15 0 .288.006.41.012.372.018.868-.142 1.364 1.05.504 1.21 1.714 4.174 1.86 4.48.146.306.244.666.036 1.086-.21.42-.316.68-.624 1.038-.34.396-.71.55-.534.85.18.306.796 1.304 1.712 2.12.912.812 1.678 1.078 1.918 1.194.24.114.568.096.78-.132.21-.228.912-1.062 1.152-1.422.24-.36.48-.3.804-.18.324.12 2.04.96 2.388 1.134.348.174.582.264.666.408.084.15.084.87-.27 1.866z"/></svg>
+    </a>
+
+    <script>
+        // 1. Animação de Entrada (Scroll Reveal)
+        (function(){
+            const targets = document.querySelectorAll('.reveal-on-scroll, .reveal-item');
+            const observer = new IntersectionObserver((entries, obs) => {
+                entries.forEach(entry => {
+                    if(entry.isIntersecting){
+                        entry.target.classList.add('is-visible');
+                        obs.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+            targets.forEach(t => observer.observe(t));
+        })();
+
+        // 2. Efeito de Desfoque ao clicar no Menu (Mantido)
+        document.querySelectorAll('.blur-link').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault(); 
+                
+                document.body.classList.add('is-scrolling');
+                
+                const targetId = this.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+
+                targetSection.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+
+                setTimeout(() => {
+                    document.body.classList.remove('is-scrolling');
+                }, 800);
+            });
+        });
+    </script>
+</body>
+</html>
